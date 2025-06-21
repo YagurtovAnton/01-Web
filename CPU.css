@@ -2,10 +2,9 @@
 {
     background-color: #323232;
     color: gray;
-    /*font-family:'Segoe UI';*/
-    font-family: 'Roboto Condensed';
+    *font-family:'Segoe UI';
+    font-family: 'Roboto';
 }
-
 h4
 {
     text-align: right;
@@ -32,3 +31,24 @@ ol
 {
     list-style-type: "- ";
 }
+
+figure
+{
+    text-align: center;
+    font-style: italic;
+}
+
+a
+{
+    color: aliceblue;
+}
+
+    a:hover, a:hover:visited
+    {
+        color: blue;
+    }
+
+    a:visited
+    {
+        color: green;
+    }
