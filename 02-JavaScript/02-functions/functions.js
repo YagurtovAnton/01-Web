@@ -131,24 +131,47 @@ function tickCountdown() {
 	const SECONDS_IN_WEEK = SECONDS_IN_DAY * 7;
 	const DAYS_IN_MONTH = 365.25 / 12;
 	const SECONDS_IN_MONTH = SECONDS_IN_DAY * DAYS_IN_MONTH;
-	const SECONDS_IN_YEAR = SECONDS_IN_DAY * 365.25;
+	const SECONDS_IN_YEAR = SECONDS_IN_DAY * 365  + SECONDS_IN_HOUR * 6;
 
 	let time_of_day = timestamp % SECONDS_IN_DAY;
+	//Убираем время дня из timestamp:
+	let date = timestamp - time_of_day;//Math.trunc(timestamp/SECONDS_IN_DAY);//date = date * SECONDS_IN_DAY;
+
+	let str_date = '';
+	let years = Math.trunc(date / SECONDS_IN_YEAR); str_date += `Years:${years},`;
+	date = date - years * SECONDS_IN_YEAR;
+	//if(years>0) date = (date%(years*SECONDS_IN_YEAR));
+	let months = Math.trunc(date / SECONDS_IN_MONTH); str_date += `Months:${months},`;
+	date = date - months * SECONDS_IN_MONTH;
+	//if(months>0) date = (date%(months*SECONDS_IN_MONTH));
+	let weeks = Math.trunc(date / SECONDS_IN_WEEK); str_date += `Weeks:${weeks},`;
+	date = date - weeks * SECONDS_IN_WEEK;
+	if (weeks > 0) date = (date % (weeks * SECONDS_IN_WEEK));
+	let days = Math.ceil(date / SECONDS_IN_DAY);
+	//days = days - Math.trunc(years/4);
+	str_date += `Days:${days},`;
+	////////////////////////////////////////////////////////////////////////////////////
+
+	document.getElementById("date-reminded").innerHTML = str_date;
+
+	////////////////////////////////////////////////////////////////////////////
+
 	let hours = Math.floor(time_of_day / SECONDS_IN_HOUR);
 	if (hours > 0) time_of_day = (time_of_day % (hours * SECONDS_IN_HOUR));
 
 	let minutes = Math.floor(time_of_day / SECONDS_IN_MINUTE);
 	if (minutes > 0) time_of_day = (time_of_day % (minutes * SECONDS_IN_MINUTE));
-	let seconds = 
 
-	///////////////////////////////////////////////
+	let seconds = time_of_day;
+
+
+	////////////////////////////////////////////////////////////////////////////
 
 	document.getElementById("hours-unit").innerHTML = addLeadingZero(hours);
 	document.getElementById("minutes-unit").innerHTML = addLeadingZero(minutes);
 	document.getElementById("seconds-unit").innerHTML = addLeadingZero(seconds);
 
-	///////////////////////////////////////////////
-
+	////////////////////////////////////////////////////////////////////////////
 
 	setTimeout(tickCountdown, 100);
 }
